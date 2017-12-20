@@ -1,0 +1,185 @@
+= Angular & **Ngrx**
+KASSEM Passam
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:status:
+:outfilesuffix: .adoc
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+:imagesdir: images
+:source-highlighter: highlightjs
+:customcss: css/styles.css
+:revealjsdir: reveal.js-3.6.0
+
+image:angular_ngrx.png[width=350, height=200]
+image:startech.png[width=200, height=200]
+
+== State Management in Angular
+
+=== State management by **Services** vs State management by **store**
+
+ifdef::backend-revealjs[=== !]
+
+image:state_service_management.png[width=100%]
+
+ifdef::backend-revealjs[=== !]
+
+image:store_service_management.png[width=100%]
+ 
+== History
+[%step]
+* image:2014.png[width=100%, height=100]
+* image:2015.png[width=100%, height=100]
+* image:2016.png[width=100%, height=100]
+
+== Ngrx
+[%step]
+* RxJS powered state management for Angular applications, inspired by Redux
+* image:ngrx-def.png[width=100%]
+
+== Three fundamental principle
+
+=== Single source of truth
+[quote]
+The state of your whole application is stored in an object tree within a single store.
+[%step]
+* ONE STORE **TO SAVE** THEM ALL
+* ONE STORE **TO FIND** THEM
+* ONE STORE **TO BRING** THEM ALL
+
+=== State is READ ONLY
+[quote]
+The only way to change the state is to emit an action.
+
+ifdef::backend-revealjs[=== !]
+
+Action : an object describing what happened.
+
+[source, javascript]
+----
+{
+  type: 'INCREMENT',
+  value: 1
+}
+----
+
+=== Changes are made with pure functions
+[quote]
+To specify how the state tree is transformed by actions, you write pure reducers.
+
+[state=prinpicle-3]
+ifdef::backend-revealjs[=== !]
+
+(previousState, action) => newState
+
+[%step]
+* (**1**, **INCREMENT**) => **2**
+
+== Ngrx blocs interactions
+
+image:building-blocks.png[width=60%, height=50%]
+
+ifdef::backend-revealjs[=== !]
+
+image:building-blocks_4.png[width=100%, height=100%]
+
+ifdef::backend-revealjs[=== !]
+
+image:building-blocks_3.png[width=100%, height=100%]
+
+ifdef::backend-revealjs[=== !]
+
+image:building-blocks_2.png[width=100%, height=100%]
+
+ifdef::backend-revealjs[=== !]
+
+image:building-blocks_1.png[width=100%, height=100%]
+
+== Let's code
+
+image:pratique.png[width=100%, height=100%]
+
+=== Prerequisites and Setup
+[%step]
+* Prerequisites : angular (2+) application
+* **npm install --save @ngrx/store**
+
+== Ngrx Ecosystem librairies
+
+=== @ngrx/store-devtools
+[%step]
+* Browser extension : Redux DevTools
+* **npm install --save @ngrx/store-devtools**
+
+=== @ngrx/effects
+[%step]
+* @ngrx/effects provides an API to model event sources as actions
+* **npm install --save @ngrx/effects**
+
+ifdef::backend-revealjs[=== !]
+
+image:effect.png[width=100%, height=100%]
+
+== Organize your store with **Normalizr**
+
+[.strech]
+=== Can you see the problem? :(
+
+[source%nowrap, javascript]
+----
+[{
+	"id": 1,
+	"title": "First Article",
+	"author": {
+		"id": 1,
+		"name": "David"
+	}
+}, {
+	"id": 2,
+	"title": "Second Article",
+	"author": {
+		"id": 1,
+		"name": "David"
+	}
+}]
+----
+
+=== Is'nt better? :)
+
+[source%nowrap, javascript]
+----
+{
+	"articles": [{
+			"id": 1,
+			"title": "First Article",
+			"author": 1
+		},
+		{
+			"id": 2,
+			"title": "Second Article",
+			"author": 1
+		}
+	],
+	"authors": [{
+		"id": 1,
+		"name": "David"
+	}]
+}
+----
+
+== Pros
+[%step]
+* Makes it easier to structure a big application
+* Gain in performance by Normalizr your store
+* Awesome debugger extension
+
+== Cons
+[%step]
+* Take a long time to learn 
+* Convince people with Ngrx
+
+== Questions ?
