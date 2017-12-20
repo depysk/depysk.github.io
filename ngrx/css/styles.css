@@ -1,0 +1,34 @@
+@import 'https://fonts.googleapis.com/css?family=Baloo+Bhai';
+
+div.ulist ul {
+	list-style: none
+}
+
+strong {
+	color: #752A8A;
+}
+
+.reveal section img,
+.image img {
+	border: 0px;
+	box-shadow: 0 0 0;
+}
+
+.reveal blockquote,
+.slides {
+	width: 100%;
+}
+
+section[data-state="prinpicle-3"] ul li {
+	list-style: none;
+}
+
+section[data-state="prinpicle-3"] ul li,
+section[data-state="prinpicle-3"] ul li p {
+	display: inline;
+	margin: 0 8px;
+}
+
+section[data-state="prinpicle-3"] .reveal .slides section .fragment.visible {
+	display: inline;
+}
