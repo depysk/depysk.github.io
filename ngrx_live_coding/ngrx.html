@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="author" content="KASSEM Passam"><title>Angular &amp; Ngrx</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/black.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/css/zenburn.css" rel="stylesheet"><script>var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/print/pdf.css" : "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/print/paper.css";
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" href="css/styles.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Angular &amp; <strong>Ngrx</strong></h1><div class="preamble"><div class="paragraph"><p><span class="image"><img src="images/angular_ngrx.png" alt="angular ngrx" width="350" height="200"></span>
+<span class="image"><img src="images/startech.png" alt="startech" width="200" height="200"></span></p></div></div><p class="author"><small>KASSEM Passam</small></p></section>
+<section id="ngrx"><h2>Ngrx</h2><div class="ulist"><ul><li class="fragment"><p>RxJS powered state management for Angular apps</p><div class="paragraph"><p>inspired by Redux</p></div></li></ul></div></section>
+<section id="history"><h2>History</h2><div class="ulist"><ul><li class="fragment"><p><span class="image"><img src="images/2014.png" alt="2014" width="100%" height="100"></span></p></li><li class="fragment"><p><span class="image"><img src="images/2015.png" alt="2015" width="100%" height="100"></span></p></li><li class="fragment"><p><span class="image"><img src="images/2016.png" alt="2016" width="100%" height="100"></span></p></li></ul></div></section>
+<section><section id="ngrx_2"><h2>Ngrx</h2><div class="paragraph"><p>Follows the three basic principles of Redux</p></div></section><section id="single_source_of_truth"><h2>Single source of truth</h2><div class="quoteblock"><blockquote>The state of your whole application is stored in an object tree within a single store.</blockquote></div>
+<div class="ulist"><ul><li class="fragment"><p>ONE STORE <strong>TO SAVE</strong> THEM ALL</p></li><li class="fragment"><p>ONE STORE <strong>TO FIND</strong> THEM</p></li><li class="fragment"><p>ONE STORE <strong>TO BRING</strong> THEM ALL</p></li></ul></div></section><section id="state_is_read_only"><h2>State is READ ONLY</h2><div class="quoteblock"><blockquote>The only way to change the state is to emit an action.</blockquote></div></section><section><div class="paragraph"><p>Action : an object describing what happened.</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="javascript language-javascript">{
+  type: 'INCREMENT',
+  value: 1
+}</code></pre></div></div></section><section id="changes_are_made_with_pure_functions"><h2>Changes are made with pure functions</h2><div class="quoteblock"><blockquote>To specify how the state tree is transformed by actions, you write pure reducers.</blockquote></div></section><section data-state="prinpicle-3"><div class="paragraph"><p>(previousState, action) &#8658; newState</p></div>
+<div class="ulist"><ul><li class="fragment"><p>(<strong>1</strong>, <strong>INCREMENT</strong>) &#8658; <strong>2</strong></p></li></ul></div></section></section>
+<section id="ngrx_3"><h2>Ngrx</h2><div class="paragraph"><p>provides two main RxJs operators to work with the store</p></div>
+<div class="ulist"><ul><li class="fragment"><p><strong>select</strong> : allows to select part of the global state as Observable</p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape>count$: Observable&lt;number&gt; = store.pipe(select('count'));</code></pre></div></div></li><li class="fragment"><p><strong>ofType</strong> : allows to filter on a specific type of action</p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape>@Effect() authActions$ = this.actions$.pipe(
+    ofType&lt;LoginAction | LogoutAction&gt;('LOGIN', 'LOGOUT'),
+    tap(action =&gt; console.log(action))
+  );</code></pre></div></div></li></ul></div></section>
+<section id="ngrx_4"><h2>Ngrx</h2><div class="paragraph"><p>is built for Angular framework</p></div>
+<div class="ulist"><ul><li class="fragment"><p>Integration into Angular is eased with <strong>Ngrx modules</strong></p><div class="ulist"><ul><li><p>StoreModule, EffectsModule, StoreDevtoolsModule</p></li></ul></div></li><li class="fragment"><p>provide <strong>@ngrx/schematics</strong> to create blueprints files</p><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape>ng generate store State --root --module app.module.ts --collection @ngrx/schematics</code></pre></div></div></li></ul></div></section>
+<section id="ngrx_5"><h2>Ngrx</h2><div class="ulist"><ul><li><p><span class="image"><img src="images/ngrx-def.png" alt="ngrx def" width="100%"></span></p></li></ul></div></section>
+<section><section id="ngrx_example_interactions"><h2>Ngrx example interactions</h2><div class="paragraph"><p><span class="image"><img src="images/building-blocks.png" alt="building blocks" width="60%" height="50%"></span></p></div></section><section><div class="paragraph"><p><span class="image"><img src="images/building-blocks_4.png" alt="building blocks 4" width="100%" height="100%"></span></p></div></section><section><div class="paragraph"><p><span class="image"><img src="images/building-blocks_3.png" alt="building blocks 3" width="100%" height="100%"></span></p></div></section><section><div class="paragraph"><p><span class="image"><img src="images/building-blocks_2.png" alt="building blocks 2" width="100%" height="100%"></span></p></div></section><section><div class="paragraph"><p><span class="image"><img src="images/building-blocks_1.png" alt="building blocks 1" width="100%" height="100%"></span></p></div></section></section>
+<section><section id="ngrx_ecosystem_librairies"><h2>Ngrx Ecosystem librairies</h2></section><section id="ngrx_schematics"><h2>@ngrx/schematics</h2><div class="ulist"><ul><li class="fragment"><p>allows to create @ngrx blueprints files : Store, Action, Reducer, Effect &#8230;&#8203;</p></li><li class="fragment"><p><strong>npm install @ngrx/schematics --save-dev</strong></p></li></ul></div></section><section id="ngrx_store_devtools"><h2>@ngrx/store-devtools</h2><div class="ulist"><ul><li class="fragment"><p>Awesome debug tool working with browser extension : Redux DevTools</p></li><li class="fragment"><p><strong>npm install @ngrx/store-devtools --save</strong></p></li></ul></div></section><section id="ngrx_effects"><h2>@ngrx/effects</h2><div class="ulist"><ul><li class="fragment"><p>@ngrx/effects provides an elegant way of handling side effects</p></li><li class="fragment"><p><strong>npm install @ngrx/effects --save</strong></p></li></ul></div></section><section id="ngrx_router_store"><h2>@ngrx/router-store</h2><div class="ulist"><ul><li class="fragment"><p>Bindings to connect the Angular Router to @ngrx/store</p></li><li class="fragment"><p><strong>npm install @ngrx/router-store --save</strong></p></li></ul></div></section><section id="ngrx_entity"><h2>@ngrx/entity</h2><div class="ulist"><ul><li class="fragment"><p>Entity State adapter for managing record collections.</p></li><li class="fragment"><p><strong>npm install @ngrx/entity --save</strong></p></li></ul></div></section></section>
+<section id="ngrx_live_coding"><h2>Ngrx Live coding</h2><div class="ulist"><ul><li class="fragment"><p>Redux pattern with <strong>Vanilla Js</strong></p></li><li class="fragment"><p>Ngrx integration with Angular app</p></li><li class="fragment"><p>Focus on <strong>@ngrx/effects</strong> module</p></li><li class="fragment"><p>Angular <strong>lazy-loading</strong> and Ngrx</p></li><li class="fragment"><p>Organize your store with <strong>Normalizr</strong></p></li><li class="fragment"><p><strong>Undo/Redo</strong> functionality with redux-undo</p></li></ul></div></section>
+<section id="redux_pattern_with_strong_vanilla_js_strong"><h2>Redux pattern with <strong>Vanilla Js</strong></h2><div class="ulist"><ul><li class="fragment"><p>Vanilla JS is not a framework but simply means "naked Js", it&#8217;s JavaScript without a library.</p></li></ul></div></section>
+<section id="let_s_code"><h2>Let&#8217;s code</h2><div class="paragraph"><p><span class="image"><img src="images/pratique.png" alt="pratique" width="70%" height="70%"></span></p></div>
+<div class="ulist"><ul><li class="fragment"><p><a href="https://github.com/depysk/ngrx_live_coding/tree/master/redux-project-with-vanilla-javascript" class="bare">https://github.com/depysk/ngrx_live_coding/tree/master/redux-project-with-vanilla-javascript</a></p></li></ul></div></section>
+<section id="ngrx_integration_with_angular_app"><h2>Ngrx integration with Angular app</h2><div class="ulist"><ul><li class="fragment"><p>Prerequisites : angular application</p></li><li class="fragment"><p><strong>npm install --save @ngrx/store</strong></p></li></ul></div></section>
+<section id="let_s_code_2"><h2>Let&#8217;s code</h2><div class="paragraph"><p><span class="image"><img src="images/pratique.png" alt="pratique" width="70%" height="70%"></span></p></div>
+<div class="ulist"><ul><li class="fragment"><p><a href="https://github.com/depysk/ngrx_live_coding/tree/master/redux-project-with-angular" class="bare">https://github.com/depysk/ngrx_live_coding/tree/master/redux-project-with-angular</a></p></li></ul></div></section>
+<section id="focus_on_strong_ngrx_effects_strong_module"><h2>Focus on <strong>@ngrx/effects</strong> module</h2><div class="ulist"><ul><li class="fragment"><p>@ngrx/effects allows side effects handling</p></li><li class="fragment"><p><strong>npm install @ngrx/effects --save</strong></p></li></ul></div></section>
+<section id="let_s_code_3"><h2>Let&#8217;s code</h2><div class="paragraph"><p><span class="image"><img src="images/pratique.png" alt="pratique" width="70%" height="70%"></span></p></div>
+<div class="ulist"><ul><li class="fragment"><p><a href="https://github.com/depysk/ngrx_live_coding/tree/master/bank-advisor" class="bare">https://github.com/depysk/ngrx_live_coding/tree/master/bank-advisor</a></p></li></ul></div></section>
+<section id="angular_strong_lazy_loading_strong_and_ngrx"><h2>Angular <strong>lazy-loading</strong> and Ngrx</h2><div class="ulist"><ul><li class="fragment"><p>Lazy loading is when you load modules only when you need them.</p></li></ul></div></section>
+<section id="let_s_code_4"><h2>Let&#8217;s code</h2><div class="paragraph"><p><span class="image"><img src="images/pratique.png" alt="pratique" width="70%" height="70%"></span></p></div>
+<div class="ulist"><ul><li class="fragment"><p><a href="https://github.com/depysk/ngrx_live_coding/tree/master/bank-advisor" class="bare">https://github.com/depysk/ngrx_live_coding/tree/master/bank-advisor</a></p></li></ul></div></section>
+<section><section id="organize_your_store_with_strong_normalizr_strong"><h2>Organize your store with <strong>Normalizr</strong></h2></section><section id="can_you_see_the_problem" class="strech"><h2>Can you see the problem? :(</h2><div class="listingblock"><div class="content"><pre class="highlight nowrap"><code data-noescape class="javascript language-javascript">[{
+	"id": 1,
+	"title": "First Article",
+	"author": {
+		"id": 1,
+		"name": "David"
+	}
+}, {
+	"id": 2,
+	"title": "Second Article",
+	"author": {
+		"id": 1,
+		"name": "David"
+	}
+}]</code></pre></div></div></section><section id="is_nt_better"><h2>Is&#8217;nt better? :)</h2><div class="listingblock"><div class="content"><pre class="highlight nowrap"><code data-noescape class="javascript language-javascript">{
+	"articles": [{
+			"id": 1,
+			"title": "First Article",
+			"author": 1
+		},
+		{
+			"id": 2,
+			"title": "Second Article",
+			"author": 1
+		}
+	],
+	"authors": [{
+		"id": 1,
+		"name": "David"
+	}]
+}</code></pre></div></div></section></section>
+<section id="let_s_code_5"><h2>Let&#8217;s code</h2><div class="paragraph"><p><span class="image"><img src="images/pratique.png" alt="pratique" width="100%" height="100%"></span></p></div></section>
+<section id="strong_undo_redo_strong_functionality_with_redux_undo"><h2><strong>Undo/Redo</strong> functionality with redux-undo</h2></section>
+<section id="questions"><h2>Questions ?</h2></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Set a per-slide timing for speaker notes, null means none
+  defaultTiming: null,
+  // Display the page number of the current slide
+  slideNumber: false,
+  // Push each slide change to the browser history
+  history: false,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Randomizes the order of slides each time the presentation loads
+  shuffle: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Flags if we should show a help overlay when the questionmark
+  // key is pressed
+  help: true,
+  // Flags if speaker notes should be visible to all viewers
+  showNotes: false,
+  // Global override for autolaying embedded media (video/audio/iframe)
+  // - null: Media will only autoplay if data-autoplay is present
+  // - true: All media will autoplay, regardless of individual setting
+  // - false: No media will autoplay, regardless of individual setting
+  autoPlayMedia: null,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/zoom-js/zoom.js', async: true },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/notes/notes.js', async: true }
+  ]
+});</script></body></html>

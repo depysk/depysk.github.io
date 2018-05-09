@@ -1,0 +1,53 @@
+@import 'https://fonts.googleapis.com/css?family=Baloo+Bhai';
+
+div.ulist ul {
+	list-style: none
+}
+
+strong {
+	color: #752A8A;
+}
+
+.reveal section img,
+.image img {
+	border: 0px;
+	box-shadow: 0 0 0;
+}
+
+.reveal pre code {
+    max-height: 600px;
+}
+
+div.slides {
+    width: 1024px !important;
+    height: 800px !important;
+}
+
+.reveal blockquote,
+.slides,
+.paragraph {
+	width: 100%;
+	text-align: center;
+}
+
+section[data-state="prinpicle-3"] ul li {
+	list-style: none;
+}
+
+section[data-state="prinpicle-3"] ul li,
+section[data-state="prinpicle-3"] ul li p {
+	display: inline;
+	margin: 0 8px;
+}
+
+section[data-state="prinpicle-3"] .reveal .slides section .fragment.visible {
+	display: inline;
+}
+
+div.ulist ul li div.ulist ul li p {
+	font-size: 75%;
+}
+
+section[id^="let_s_code"] div.ulist ul li p a {
+	font-size: 75%;
+}

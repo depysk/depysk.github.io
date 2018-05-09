@@ -1,0 +1,262 @@
+= Angular & **Ngrx**
+KASSEM Passam
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:status:
+:outfilesuffix: .adoc
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+:imagesdir: images
+:source-highlighter: highlightjs
+:customcss: css/styles.css
+:revealjsdir: revealjs
+
+image:angular_ngrx.png[width=350, height=200]
+image:startech.png[width=200, height=200]
+
+== Ngrx
+[%step]
+* RxJS powered state management for Angular apps
++
+inspired by Redux
+
+== History
+[%step]
+* image:2014.png[width=100%, height=100]
+* image:2015.png[width=100%, height=100]
+* image:2016.png[width=100%, height=100]
+
+== Ngrx 
+Follows the three basic principles of Redux
+
+=== Single source of truth
+[quote]
+The state of your whole application is stored in an object tree within a single store.
+[%step]
+* ONE STORE **TO SAVE** THEM ALL
+* ONE STORE **TO FIND** THEM
+* ONE STORE **TO BRING** THEM ALL
+
+=== State is READ ONLY
+[quote]
+The only way to change the state is to emit an action.
+
+ifdef::backend-revealjs[=== !]
+
+Action : an object describing what happened.
+
+[source, javascript]
+----
+{
+  type: 'INCREMENT',
+  value: 1
+}
+----
+
+=== Changes are made with pure functions
+[quote]
+To specify how the state tree is transformed by actions, you write pure reducers.
+
+[state=prinpicle-3]
+ifdef::backend-revealjs[=== !]
+
+(previousState, action) => newState
+
+[%step]
+* (**1**, **INCREMENT**) => **2**
+
+== Ngrx 
+provides two main RxJs operators to work with the store
+
+[%step]
+* **select** : allows to select part of the global state as Observable
++
+
+----
+count$: Observable<number> = store.pipe(select('count'));
+----
+
+* **ofType** : allows to filter on a specific type of action
++
+
+----
+@Effect() authActions$ = this.actions$.pipe(
+    ofType<LoginAction | LogoutAction>('LOGIN', 'LOGOUT'),
+    tap(action => console.log(action))
+  );
+----
+
+== Ngrx
+is built for Angular framework
+
+[%step]
+* Integration into Angular is eased with **Ngrx modules**
+** StoreModule, EffectsModule, StoreDevtoolsModule
+* provide **@ngrx/schematics** to create blueprints files
++
+----
+ng generate store State --root --module app.module.ts --collection @ngrx/schematics
+----
+
+== Ngrx
+* image:ngrx-def.png[width=100%]
+
+== Ngrx example interactions
+
+image:building-blocks.png[width=60%, height=50%]
+
+ifdef::backend-revealjs[=== !]
+
+image:building-blocks_4.png[width=100%, height=100%]
+
+ifdef::backend-revealjs[=== !]
+
+image:building-blocks_3.png[width=100%, height=100%]
+
+ifdef::backend-revealjs[=== !]
+
+image:building-blocks_2.png[width=100%, height=100%]
+
+ifdef::backend-revealjs[=== !]
+
+image:building-blocks_1.png[width=100%, height=100%]
+
+== Ngrx Ecosystem librairies
+
+=== @ngrx/schematics
+[%step]
+* allows to create @ngrx blueprints files : Store, Action, Reducer, Effect ...
+* **npm install @ngrx/schematics --save-dev**
+
+=== @ngrx/store-devtools
+[%step]
+* Awesome debug tool working with browser extension : Redux DevTools
+* **npm install @ngrx/store-devtools --save**
+
+=== @ngrx/effects
+[%step]
+* @ngrx/effects provides an elegant way of handling side effects
+* **npm install @ngrx/effects --save**
+
+=== @ngrx/router-store
+[%step]
+* Bindings to connect the Angular Router to @ngrx/store
+* **npm install @ngrx/router-store --save**
+
+=== @ngrx/entity
+[%step]
+* Entity State adapter for managing record collections.
+* **npm install @ngrx/entity --save**
+
+== Ngrx Live coding 
+
+[%step]
+* Redux pattern with **Vanilla Js**
+* Ngrx integration with Angular app
+* Focus on **@ngrx/effects** module
+* Angular **lazy-loading** and Ngrx
+* Organize your store with **Normalizr**
+* **Undo/Redo** functionality with redux-undo
+
+== Redux pattern with **Vanilla Js**
+
+[%step]
+* Vanilla JS is not a framework but simply means "naked Js", it's JavaScript without a library.
+
+== Let's code
+image:pratique.png[width=70%, height=70%]
+
+[%step]
+* https://github.com/depysk/ngrx_live_coding/tree/master/redux-project-with-vanilla-javascript
+
+== Ngrx integration with Angular app
+
+[%step]
+* Prerequisites : angular application
+* **npm install --save @ngrx/store**
+
+== Let's code
+image:pratique.png[width=70%, height=70%]
+
+[%step]
+* https://github.com/depysk/ngrx_live_coding/tree/master/redux-project-with-angular
+
+== Focus on **@ngrx/effects** module
+[%step]
+* @ngrx/effects allows side effects handling
+* **npm install @ngrx/effects --save**
+
+== Let's code
+image:pratique.png[width=70%, height=70%]
+
+[%step]
+* https://github.com/depysk/ngrx_live_coding/tree/master/bank-advisor
+
+== Angular **lazy-loading** and Ngrx
+
+[%step]
+* Lazy loading is when you load modules only when you need them.
+
+== Let's code
+image:pratique.png[width=70%, height=70%]
+
+[%step]
+* https://github.com/depysk/ngrx_live_coding/tree/master/bank-advisor
+
+== Organize your store with **Normalizr**
+
+[.strech]
+=== Can you see the problem? :(
+
+[source%nowrap, javascript]
+----
+[{
+	"id": 1,
+	"title": "First Article",
+	"author": {
+		"id": 1,
+		"name": "David"
+	}
+}, {
+	"id": 2,
+	"title": "Second Article",
+	"author": {
+		"id": 1,
+		"name": "David"
+	}
+}]
+----
+
+=== Is'nt better? :)
+
+[source%nowrap, javascript]
+----
+{
+	"articles": [{
+			"id": 1,
+			"title": "First Article",
+			"author": 1
+		},
+		{
+			"id": 2,
+			"title": "Second Article",
+			"author": 1
+		}
+	],
+	"authors": [{
+		"id": 1,
+		"name": "David"
+	}]
+}
+----
+
+== Let's code
+image:pratique.png[width=100%, height=100%]
+
+== **Undo/Redo** functionality with redux-undo
+
+== Questions ?
